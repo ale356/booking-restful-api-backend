@@ -8,6 +8,7 @@
 import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
+import cors from 'cors'
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'
 import { User } from './models/user.js'
@@ -20,6 +21,9 @@ try {
 
   // Set various HTTP headers to make the application little more secure (https://www.npmjs.com/package/helmet).
   app.use(helmet())
+
+  // Register cors middleware to enable CORS.
+  app.use(cors())
 
   // Set up a morgan logger using the dev format for log entries.
   app.use(logger('dev'))
