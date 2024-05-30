@@ -101,10 +101,7 @@ router.get('/:id',
 )
 
 // POST appointments
-router.post('/',
-  authenticateJWT,
-  (req, res, next) => hasPermission(req, res, next, PermissionLevels.CREATE),
-  (req, res, next) => controller.create(req, res, next)
+router.post('/', (req, res, next) => controller.create(req, res, next)
 )
 
 // PUT appointments/:id
