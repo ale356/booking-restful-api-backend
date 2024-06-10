@@ -8,11 +8,11 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import createError from 'http-errors'
-import { AppointmentsController } from '../../../controllers/api/appointments-controller.js'
+import { ContactRequestsController } from '../../../controllers/api/contactrequests-controller.js'
 
 export const router = express.Router()
 
-const controller = new AppointmentsController()
+const controller = new ContactRequestsController()
 
 // ------------------------------------------------------------------------------
 //  Helpers
@@ -83,34 +83,35 @@ const hasPermission = (req, res, next, permissionLevel) => {
 //  Routes
 // ------------------------------------------------------------------------------
 
-// Provide req.appointment to the route if :id is present in the route path.
-router.param('id', (req, res, next, id) => controller.loadAppointment(req, res, next, id))
+// Provide req.contactRequest to the route if :id is present in the route path.
+router.param('id', (req, res, next, id) => controller.loadContactRequest(req, res, next, id))
 
-// GET appointments.
+// GET contactRequests.
 router.get('/',
   authenticateJWT,
   (req, res, next) => hasPermission(req, res, next, PermissionLevels.READ),
   (req, res, next) => controller.findAll(req, res, next)
 )
 
-// GET appointments/:id
+// GET contactRequests/:id
 router.get('/:id',
   authenticateJWT,
   (req, res, next) => hasPermission(req, res, next, PermissionLevels.READ),
   (req, res, next) => controller.find(req, res, next)
 )
 
-// POST appointments
-router.post('/', (req, res, next) => controller.create(req, res, next))
+// POST contactRequests
+router.post('/', (req, res, next) => controller.create(req, res, next)
+)
 
-// PUT appointments/:id
+// PUT contactRequests/:id
 router.put('/:id',
   authenticateJWT,
   (req, res, next) => hasPermission(req, res, next, PermissionLevels.UPDATE),
   (req, res, next) => controller.update(req, res, next)
 )
 
-// DELETE appointments/:id
+// DELETE contactRequests/:id
 router.delete('/:id',
   authenticateJWT,
   (req, res, next) => hasPermission(req, res, next, PermissionLevels.DELETE),

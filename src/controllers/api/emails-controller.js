@@ -1,38 +1,38 @@
 /**
- * Module for the ServicesController.
+ * Module for the EmailsController.
  *
  * @author Mats Loock
  * @version 2.0.0
  */
 
 import createError from 'http-errors'
-import { Service } from '../../models/service.js'
+import { Email } from '../../models/email.js'
 
 /**
  * Encapsulates a controller.
  */
-export class ServicesController {
+export class EmailsController {
   /**
-   * Provide req.service to the route if :id is present.
+   * Provide req.email to the route if :id is present.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
-   * @param {string} id - The value of the id for the service to load.
+   * @param {string} id - The value of the id for the email to load.
    */
-  async loadService(req, res, next, id) {
+  async loadEmail(req, res, next, id) {
     try {
-      // Get the service.
-      const service = await Service.findById(id)
+      // Get the email.
+      const email = await Email.findById(id)
 
-      // If no service found send a 404 (Not Found).
-      if (!service) {
+      // If no email found send a 404 (Not Found).
+      if (!email) {
         next(createError(404))
         return
       }
 
-      // Provide the service to req.
-      req.service = service
+      // Provide the email to the req.
+      req.email = email
 
       // Next middleware.
       next()
@@ -42,18 +42,18 @@ export class ServicesController {
   }
 
   /**
-   * Sends a JSON response containing a service.
+   * Sends a JSON response containing a email.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
   async find(req, res, next) {
-    res.json(req.service)
+    res.json(req.email)
   }
 
   /**
-   * Sends a JSON response containing all services.
+   * Sends a JSON response containing all emails.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -61,16 +61,16 @@ export class ServicesController {
    */
   async findAll(req, res, next) {
     try {
-      const services = await Service.find()
+      const emails = await Email.find()
 
-      res.json(services)
+      res.json(emails)
     } catch (error) {
       next(error)
     }
   }
 
   /**
-   * Creates a new service.
+   * Creates a new email.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -78,30 +78,27 @@ export class ServicesController {
    */
   async create(req, res, next) {
     try {
-      const service = new Service({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        durationInMinutes: req.body.durationInMinutes
+      const email = new Email({
+        email: req.body.email
       })
 
-      await service.save()
+      await email.save()
 
       const location = new URL(
-        `${req.protocol}://${req.get('host')}${req.baseUrl}/${service._id}`
+        `${req.protocol}://${req.get('host')}${req.baseUrl}/${email._id}`
       )
 
       res
         .location(location.href)
         .status(201)
-        .json(service)
+        .json(email)
     } catch (error) {
       next(error)
     }
   }
 
   /**
-   * Updates a specific service.
+   * Updates a specific email.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -109,16 +106,17 @@ export class ServicesController {
    */
   async update(req, res, next) {
     try {
-      // Only save the valid properties on the request body.
-      for (const field in req.body) {
-        // Check if the field exists in the service schema.
-        if (Object.prototype.hasOwnProperty.call(req.service.schema.obj, field)) {
-          // Update the corresponding property of the service object with the value from the request body.
-          req.service[field] = req.body[field]
-        }
-      }
+      // Get the email id parameter from the url.
+      const emailId = req.params.id
 
-      await req.service.save()
+      // The object to send in to findOneAndUpdate.
+      const filter = { _id: emailId }
+      const update = req.body
+
+      // Search upp the email document in the database and update it.
+      await Email.findOneAndUpdate(filter, update, {
+        new: true
+      })
 
       res
         .status(204)
@@ -129,7 +127,7 @@ export class ServicesController {
   }
 
   /**
-   * Deletes the specified service.
+   * Deletes the specified email.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -137,7 +135,7 @@ export class ServicesController {
    */
   async delete(req, res, next) {
     try {
-      await req.service.deleteOne()
+      await req.email.deleteOne()
 
       res
         .status(204)

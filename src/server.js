@@ -12,10 +12,12 @@ import cors from 'cors'
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'
 import { User } from './models/user.js'
+import { Theme } from './models/theme.js'
 
 try {
   await connectDB()
   await User.createAdminAccountIfNotExists()
+  await Theme.createThemeIfNotExists()
 
   const app = express()
 
