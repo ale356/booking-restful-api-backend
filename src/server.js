@@ -58,10 +58,10 @@ try {
         message: err.message,
         cause: err.cause
           ? {
-            status: err.cause.status,
-            message: err.cause.message,
-            stack: err.cause.stack
-          }
+              status: err.cause.status,
+              message: err.cause.message,
+              stack: err.cause.stack
+            }
           : null,
         stack: err.stack
       })

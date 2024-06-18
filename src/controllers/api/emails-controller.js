@@ -1,8 +1,8 @@
 /**
  * Module for the EmailsController.
  *
- * @author Mats Loock
- * @version 2.0.0
+ * @author Alejandro Lindström Mamani
+ * @version 1.0.0
  */
 
 import createError from 'http-errors'
@@ -20,7 +20,7 @@ export class EmailsController {
    * @param {Function} next - Express next middleware function.
    * @param {string} id - The value of the id for the email to load.
    */
-  async loadEmail(req, res, next, id) {
+  async loadEmail (req, res, next, id) {
     try {
       // Get the email.
       const email = await Email.findById(id)
@@ -48,7 +48,7 @@ export class EmailsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async find(req, res, next) {
+  async find (req, res, next) {
     res.json(req.email)
   }
 
@@ -59,7 +59,7 @@ export class EmailsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async findAll(req, res, next) {
+  async findAll (req, res, next) {
     try {
       const emails = await Email.find()
 
@@ -76,7 +76,7 @@ export class EmailsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async create(req, res, next) {
+  async create (req, res, next) {
     try {
       const email = new Email({
         email: req.body.email
@@ -104,7 +104,7 @@ export class EmailsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async update(req, res, next) {
+  async update (req, res, next) {
     try {
       // Get the email id parameter from the url.
       const emailId = req.params.id
@@ -133,7 +133,7 @@ export class EmailsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async delete(req, res, next) {
+  async delete (req, res, next) {
     try {
       await req.email.deleteOne()
 

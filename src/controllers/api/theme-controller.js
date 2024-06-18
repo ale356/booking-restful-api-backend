@@ -1,11 +1,10 @@
 /**
  * Module for the ThemeController.
  *
- * @author Mats Loock
- * @version 2.0.0
+ * @author Alejandro Lindström Mamani
+ * @version 1.0.0
  */
 
-import createError from 'http-errors'
 import { Theme } from '../../models/theme.js'
 
 /**
@@ -19,7 +18,7 @@ export class ThemeController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async findOne(req, res, next) {
+  async findOne (req, res, next) {
     try {
       const theme = await Theme.findOne()
 
@@ -30,15 +29,14 @@ export class ThemeController {
   }
 
   /**
- * Updates the theme.
- *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
- * @param {Function} next - Express next middleware function.
- */
-  async update(req, res, next) {
+   * Updates the theme.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async update (req, res, next) {
     try {
-
       // The object to send in to findOneAndUpdate.
       const update = req.body
 

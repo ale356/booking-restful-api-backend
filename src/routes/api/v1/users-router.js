@@ -2,7 +2,8 @@
  * API version 1 routes.
  *
  * @author Mats Loock
- * @version 2.0.0
+ * @author Alejandro Lindström Mamani
+ * @version 1.0.0
  */
 
 import express from 'express'

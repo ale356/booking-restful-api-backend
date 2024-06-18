@@ -1,8 +1,8 @@
 /**
  * Module for the AppointmentsController.
  *
- * @author Mats Loock
- * @version 2.0.0
+ * @author Alejandro Lindström Mamani
+ * @version 1.0.0
  */
 
 import createError from 'http-errors'
@@ -20,7 +20,7 @@ export class AppointmentsController {
    * @param {Function} next - Express next middleware function.
    * @param {string} id - The value of the id for the appointment to load.
    */
-  async loadAppointment(req, res, next, id) {
+  async loadAppointment (req, res, next, id) {
     try {
       // Get the appointment.
       const appointment = await Appointment.findById(id)
@@ -48,7 +48,7 @@ export class AppointmentsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async find(req, res, next) {
+  async find (req, res, next) {
     res.json(req.appointment)
   }
 
@@ -59,7 +59,7 @@ export class AppointmentsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async findAll(req, res, next) {
+  async findAll (req, res, next) {
     try {
       const appointments = await Appointment.find()
 
@@ -76,7 +76,7 @@ export class AppointmentsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async create(req, res, next) {
+  async create (req, res, next) {
     try {
       const appointment = new Appointment({
         serviceId: req.body.serviceId,
@@ -109,7 +109,7 @@ export class AppointmentsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async update(req, res, next) {
+  async update (req, res, next) {
     try {
       // Get the appointment id parameter from the url.
       const appointmentId = req.params.id
@@ -138,7 +138,7 @@ export class AppointmentsController {
    * @param {object} res - Express response object.
    * @param {Function} next - Express next middleware function.
    */
-  async delete(req, res, next) {
+  async delete (req, res, next) {
     try {
       await req.appointment.deleteOne()
 

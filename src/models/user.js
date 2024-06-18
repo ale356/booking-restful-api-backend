@@ -2,7 +2,8 @@
  * Mongoose model User.
  *
  * @author Mats Loock
- * @version 2.0.0
+ * @author Alejandro Lindström Mamani
+ * @version 1.0.0
  */
 
 import bcrypt from 'bcrypt'

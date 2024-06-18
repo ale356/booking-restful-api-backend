@@ -1,8 +1,8 @@
 /**
  * Module for the ServicesController.
  *
- * @author Mats Loock
- * @version 2.0.0
+ * @author Alejandro Lindström Mamani
+ * @version 1.0.0
  */
 
 import createError from 'http-errors'
