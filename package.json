@@ -28,8 +28,14 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
-    "@lnu/eslint-config": "^1.1.4",
+    "@lnu/eslint-config": "^1.1.10",
     "dotenv": "^14.2.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsdoc": "^46.10.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.2.0",
     "nodemon": "^2.0.15"
   }
 }
